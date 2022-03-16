@@ -1,211 +1,37 @@
-// import { Table, Input, Button, Popconfirm, Form, Modal } from "antd";
-// import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-// import { useContext, useState, useEffect, useRef } from "react";
-// import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-// function App() {
-//   const [dataSource, setDataSource] = useState([
-//     {
-//       id: 1,
-//       name: "John",
-//       email: "john@gmail.com",
-//       address: "john address",
-//     },
-//     {
-//       id: 2,
-//       name: "Peter",
-//       email: "peter@gmail.com",
-//       address: "peter address",
-//     },
-//     {
-//       id: 3,
-//       name: "Carlos",
-//       email: "carlos@gmail.com",
-//       address: "carlos address",
-//     },
-//   ]);
-//   const [editingRow, setEditingRow] = useState(null);
-//   const [form] = Form.useForm();
-//   const columns = [
-//     {
-//       title: "ID",
-//       dataIndex: "id",
-//       render: (text, record) => {
-//         if (editingRow === record.id) {
-//           return (
-//             <Form.Item
-//               name="id"
-//               rules={[
-//                 {
-//                   required: true,
-//                   message: "Please enter your id",
-//                 },
-//               ]}
-//             >
-//               <Input />
-//             </Form.Item>
-//           );
-//         } else {
-//           return <p>{text}</p>;
-//         }
-//       },
-//     },
-//     {
-//       title: "Name",
-//       dataIndex: "name",
-//       render: (text, record) => {
-//         if (editingRow === record.id) {
-//           return (
-//             <Form.Item
-//               name="name"
-//               rules={[
-//                 {
-//                   required: true,
-//                   message: "Please enter your name",
-//                 },
-//               ]}
-//             >
-//               <Input />
-//             </Form.Item>
-//           );
-//         } else {
-//           return <p>{text}</p>;
-//         }
-//       },
-//     },
-//     {
-//       title: "Email",
-//       dataIndex: "email",
-//       render: (text, record) => {
-//         if (editingRow === record.id) {
-//           return (
-//             <Form.Item
-//               name="email"
-//               rules={[
-//                 {
-//                   required: true,
-//                   message: "Please enter your email",
-//                 },
-//               ]}
-//             >
-//               <Input />
-//             </Form.Item>
-//           );
-//         } else {
-//           return <p>{text}</p>;
-//         }
-//       },
-//     },
-//     {
-//       title: "Address",
-//       dataIndex: "address",
-//       render: (text, record) => {
-//         if (editingRow === record.id) {
-//           return (
-//             <Form.Item
-//               name="address"
-//               rules={[
-//                 {
-//                   required: true,
-//                   message: "Please enter your address",
-//                 },
-//               ]}
-//             >
-//               <Input />
-//             </Form.Item>
-//           );
-//         } else {
-//           return <p>{text}</p>;
-//         }
-//       },
-//     },
-//     {
-//       title: "Actions",
-//       render: (_, record) => {
-//         return (
-//           <>
-//             <EditOutlined
-//               onClick={() => {
-//                 setEditingRow(record.id);
-//                 form.setFieldsValue({
-//                   id: record.id,
-//                   name: record.name,
-//                   email: record.email,
-//                   address: record.address,
-//                 });
-//               }}
-//             />
-//             <Button type="link" htmlType="submit">
-//               Save
-//             </Button>
-//             <DeleteOutlined
-//               onClick={() => {
-//                 onDeleteStudent(record);
-//               }}
-//               style={{ color: "red", marginLeft: 12 }}
-//             />
-//           </>
-//         );
-//       },
-//     },
-//   ];
-//   const onAddStudent = () => {
-//     const randomNumber = parseInt(Math.random() * 1000);
-//     const newStudent = {
-//       id: randomNumber,
-//       name: "Name " + randomNumber,
-//       email: randomNumber + "@gmail.com",
-//       address: "Address" + randomNumber,
-//     };
-//     setDataSource((pre) => {
-//       return [...pre, newStudent];
-//     });
-//   };
-//   const onDeleteStudent = (record) => {
-//     Modal.confirm({
-//       title: "Estas seguro que quieres eliminarlo?",
-//       okText: "Si",
-//       okType: "danger",
-//       onOk: () => {
-//         setDataSource((pre) => {
-//           return pre.filter((student) => student.id !== record.id);
-//         });
-//       },
-//     });
-//   };
-//   const onFinish = (values) => {
-//     const updatedDataSource = [...dataSource];
-//     updatedDataSource.splice(editingRow, 1, { ...values, key: editingRow });
-//     setDataSource(updatedDataSource);
-//     setEditingRow(null);
-//   };
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <Button onClick={onAddStudent}>Add a new Student</Button>
-//         <Form form={form} onFinish={onFinish}>
-//           <Table dataSource={dataSource} columns={columns}></Table>
-//         </Form>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useState } from "react";
 import "antd/dist/antd.css";
-import { Table, Input, InputNumber, Popconfirm, Form, Typography } from "antd";
-const originData = [];
+import {
+  Table,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Form,
+  Typography,
+  Modal,
+  Button,
+} from "antd";
 
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+const originData = [
+  {
+    key: 1,
+    name: "John",
+    email: "john@gmail.com",
+    address: "john address",
+  },
+  {
+    key: 2,
+    name: "Peter",
+    email: "peter@gmail.com",
+    address: "peter address",
+  },
+  {
+    key: 3,
+    name: "Carlos",
+    email: "carlos@gmail.com",
+    address: "carlos address",
+  },
+];
 
 const EditableCell = ({
   editing,
@@ -251,8 +77,9 @@ const App = () => {
 
   const edit = (record) => {
     form.setFieldsValue({
+      key: "",
       name: "",
-      age: "",
+      email: "",
       address: "",
       ...record,
     });
@@ -283,8 +110,38 @@ const App = () => {
       console.log("Validate Failed:", errInfo);
     }
   };
+  const onDeleteStudent = (record) => {
+    Modal.confirm({
+      title: "Estas seguro que quieres eliminarlo?",
+      okText: "Si",
+      okType: "danger",
+      onOk: () => {
+        setData((pre) => {
+          return pre.filter((student) => student.key !== record.key);
+        });
+      },
+    });
+  };
 
+  const onAddStudent = () => {
+    const randomNumber = parseInt(Math.random() * 1000);
+    const newStudent = {
+      key: randomNumber,
+      name: "Name " + randomNumber,
+      email: randomNumber + "@gmail.com",
+      address: "Address" + randomNumber,
+    };
+    setData((pre) => {
+      return [...pre, newStudent];
+    });
+  };
   const columns = [
+    {
+      title: "Id",
+      dataIndex: "key",
+      width: "25%",
+      editable: false,
+    },
     {
       title: "name",
       dataIndex: "name",
@@ -292,8 +149,8 @@ const App = () => {
       editable: true,
     },
     {
-      title: "age",
-      dataIndex: "age",
+      title: "email",
+      dataIndex: "email",
       width: "15%",
       editable: true,
     },
@@ -323,12 +180,20 @@ const App = () => {
             </Popconfirm>
           </span>
         ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
+          <span>
+            <EditOutlined
+              disabled={editingKey !== ""}
+              onClick={() => edit(record)}
+            >
+              Edit
+            </EditOutlined>
+            <DeleteOutlined
+              onClick={() => {
+                onDeleteStudent(record);
+              }}
+              style={{ color: "red", marginLeft: 12 }}
+            />
+          </span>
         );
       },
     },
@@ -342,30 +207,34 @@ const App = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === "age" ? "number" : "text",
+        inputType: col.dataIndex === "email" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
+  console.log(data);
   return (
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: cancel,
-        }}
-      />
-    </Form>
+    <>
+      <Button onClick={onAddStudent}>Add a new Student</Button>
+      <Form form={form} component={false}>
+        <Table
+          components={{
+            body: {
+              cell: EditableCell,
+            },
+          }}
+          bordered
+          dataSource={data}
+          columns={mergedColumns}
+          rowClassName="editable-row"
+          pagination={{
+            onChange: cancel,
+          }}
+        />
+      </Form>
+    </>
   );
 };
 
