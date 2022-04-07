@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import BarChart from "./components/BarChart";
+import LineChart from "./components/LineChart";
+import SegmentChart from "./components/SegmentChart";
+import SegmentChartGrandient from "./components/SegmentChartGrandient";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{ width: "400px" }}>
+        <BarChart />
+      </div>
+      <div style={{ width: "400px" }}>
+        <LineChart />
+      </div>
+      <div style={{ width: "400px" }}>
+        <SegmentChart />
+      </div>
+      <div style={{ width: "400px" }}>
+        <SegmentChartGrandient />
+      </div>
     </div>
   );
 }
